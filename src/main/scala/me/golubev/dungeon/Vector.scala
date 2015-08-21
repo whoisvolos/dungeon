@@ -12,5 +12,8 @@ object Vector {
     def + (other: (Float, Float)) = Vector(self.x + other._1, self.y + other._2)
     def - (other: Vector2f) = Vector(self.x - other.x, self.y - other.y)
     def - (other: (Float, Float)) = Vector(self.x - other._1, self.y - other._2)
+
+    def * (scalar: Float) = Vector(self.x * scalar, self.y * scalar)
+    def / (scalar: Float) = Vector(self.x / scalar, self.y / scalar)
   }
 }
