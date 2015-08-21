@@ -26,7 +26,7 @@ class DungeonSkeleton(name: String) extends BasicGame(name) {
 
   val randCoords = rgen.randomCoords(40)
   val randDirections = rgen.randomDirections
-  val randCorridorLengths = rgen.randomInts(5)
+  val randCorridorLengths = rgen.randomInts(1)
 
   val roomsgen =
     rgen
@@ -45,14 +45,14 @@ class DungeonSkeleton(name: String) extends BasicGame(name) {
           case prevRoom :: _ =>
             val nextDir = randDirections.next()
             newRoom to (nextDir match {
-              case (1, 0) => Vector(prevRoom.x1 + randCorridorLengths.next + 2, prevRoom.y)
-              case (-1, 0) => Vector(prevRoom.x - newRoom.width - randCorridorLengths.next - 2, prevRoom.y)
-              case (0, 1) => Vector(prevRoom.x, prevRoom.y1 + randCorridorLengths.next + 2)
-              case (0, -1) => Vector(prevRoom.x, prevRoom.y - newRoom.height - randCorridorLengths.next - 2)
+              case (1, 0) => Vector(prevRoom.x1 + randCorridorLengths.next, prevRoom.y)
+              case (-1, 0) => Vector(prevRoom.x - newRoom.width - randCorridorLengths.next, prevRoom.y)
+              case (0, 1) => Vector(prevRoom.x, prevRoom.y1 + randCorridorLengths.next)
+              case (0, -1) => Vector(prevRoom.x, prevRoom.y - newRoom.height - randCorridorLengths.next)
             })
         }
       }
-      .filter(newRoom => rooms find(newRoom.overlappedWithPad(_, 1)) isEmpty)
+      .filter(newRoom => rooms find(newRoom.overlappedWithPad(_, 0)) isEmpty)
 
   override def init(gameContainer: GameContainer): Unit = {
     app = Some(gameContainer.asInstanceOf[AppGameContainer])
